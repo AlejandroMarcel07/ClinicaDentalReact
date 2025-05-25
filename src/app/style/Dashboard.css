@@ -1,0 +1,192 @@
+.container-dasboard{
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+}
+
+.container-dasboard .dashboard-menu{
+    border-right: 1px solid lightgray;
+    width: 20%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-menu .menu-top{
+    width: 100%;
+    flex-grow: 0;
+    border-bottom: 1px solid lightgray;
+    box-sizing: border-box; 
+    padding: 10px 20px; 
+}
+
+.menu-top .menu-top-box{
+    width: 100%;
+    height: 50px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.menu-top h5{
+    margin: 0px;
+    font-family: "Outfit";
+    font-size: 21px;
+}
+
+.dashboard-menu .menu-center{
+    width:100%;
+    flex-grow: 5;
+    box-sizing: border-box; 
+    padding: 20px 20px; 
+}
+
+.menu-center .menu-center-box{
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+
+    display: flex;  
+    flex-direction: column; 
+    align-items:start; 
+    gap: 10px;
+}
+
+.menu-center-box .box-menu-center{
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    display: flex;  
+    flex-direction: column;
+    align-items:start;  
+    gap: 5px; 
+    box-sizing: border-box;
+    padding: 8px;
+}
+
+.lb-clinica-center{
+    font-family: "Outfit";
+    font-size: 14px;
+    color: black;
+}
+
+.lb-nameclinica-center{
+    font-family: "Outfit";
+    font-size: 14px;
+    color: gray;
+}
+
+.menu-center-box .btn-menu-center{
+    width: 100%;
+    border: none;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    height: 35px;
+    gap: 10px;
+    border-radius: 5px;
+    font-family: "Outfit";
+    box-sizing: border-box;
+    padding: 5px 10px;
+    background-color: white;
+    
+}
+
+.menu-center-box .lb-menu-center{
+    font-family: "Outfit";
+    font-size: 14px;
+    color: gray;
+    margin-top: 5px;
+}
+
+.dashboard-menu .menu-bottom{
+    width: 100%;
+    flex-grow: 0;
+    box-sizing: border-box;
+    padding: 20px 20px;
+
+
+}
+
+.menu-bottom .box-menu-bottom{
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.box-menu-bottom .bottom-left{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box-menu-bottom .bottom-center{
+    display: flex;  
+    flex-direction: column;
+    align-items:start; 
+    width: 100%;    
+}
+
+.bottom-center .bottom-center-lb{
+    font-size: 14px;
+    font-family: "Outfit";
+}
+
+.box-menu-bottom .bottom-right{
+width: auto;
+height: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.btn-bottom-right{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.container-dasboard .dashboard-body{
+    width: 100%;
+    height: 100%;
+}
+
+
+.btn-cerrar-sesion{
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    font-family: "Outfit";
+}
+
+
+
+.container-dasboard .dashboard-body{
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.dashboard-body .dasboard-body-panel{
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid lightgray;
+}
+
+
