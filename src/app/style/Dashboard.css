@@ -1,21 +1,25 @@
 .container-dasboard{
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* Evita scroll no deseado */
 }
 
-.container-dasboard .dashboard-menu{
-    border-right: 1px solid lightgray;
-    width: 20%;
-    height: 100%;
+.container-dasboard .dashboard-menu {
+  width: 220px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-right: 1px solid #eee;
+}
 
-    display: flex;
-    flex-direction: column;
+.container-dasboard .dashboard-body {
+  flex: 1;
+  overflow: auto;
+  background-color: rgb(243, 241, 250);
+  padding: 20px;
+  width: calc(100% - 220px);
 }
 
 .dashboard-menu .menu-top{
@@ -24,6 +28,7 @@
     border-bottom: 1px solid lightgray;
     box-sizing: border-box; 
     padding: 10px 20px; 
+
 }
 
 .menu-top .menu-top-box{
@@ -45,7 +50,7 @@
     width:100%;
     flex-grow: 5;
     box-sizing: border-box; 
-    padding: 20px 20px; 
+    padding: 13px 13px; 
 }
 
 .menu-center .menu-center-box{
@@ -56,55 +61,116 @@
     display: flex;  
     flex-direction: column; 
     align-items:start; 
-    gap: 10px;
+    gap: 5px;
 }
 
 .menu-center-box .box-menu-center{
     width: 100%;
     height: 60px;
-    background-color: white;
     border-radius: 5px;
-    border: 1px solid lightgray;
+    /* border: 1px solid rgba(211, 211, 211, 0.356); */
+    background-color: #5f0dd1;
     display: flex;  
     flex-direction: column;
     align-items:start;  
     gap: 5px; 
     box-sizing: border-box;
+
     padding: 8px;
 }
 
 .lb-clinica-center{
     font-family: "Outfit";
     font-size: 14px;
-    color: black;
+    font-weight: 500;
+    color: white;
 }
 
 .lb-nameclinica-center{
     font-family: "Outfit";
     font-size: 14px;
-    color: gray;
+    color: white;
+    font-weight: 300;
 }
 
-.menu-center-box .btn-menu-center{
-    width: 100%;
-    border: none;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    height: 35px;
-    gap: 10px;
-    border-radius: 5px;
-    font-family: "Outfit";
-    box-sizing: border-box;
-    padding: 5px 10px;
-    background-color: white;
-    
+.btn-menu-center {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+  background-color: white;
+  border: none;
+  font-family: "Outfit";
+  border-radius: 0px 5px 5px 0px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none; 
+  box-sizing: border-box;
+  top: 0;
 }
+
+.btn-menu-center .icon-wrapper {
+  font-size: 16px;
+  color: #333;
+  transition: transform 0.3s ease;
+}
+
+.btn-menu-center::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background-color: #5f0dd1;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.3s ease;
+}
+
+.btn-menu-center:hover {
+  background-color: #f1ecfc;
+  color: #2e00fd;
+  border-radius: 5px;
+}
+
+.btn-menu-center:hover::before {
+  transform: scaleY(1);
+  background-color: #2e00fd;
+  border-radius: 5px;
+}
+
+.btn-menu-center:hover .icon-wrapper {
+    color: #2e00fd;
+  transform: scale(1.1);
+}
+
+.btn-menu-center.active {
+  background-color: #f1ecfc;
+  color: #5f0dd1;
+
+}
+
+.btn-menu-center.active::before {
+  transform: scaleY(1);
+  background-color: #5f0dd1;
+}
+
+.btn-menu-center.active .icon-wrapper {
+  color: #5f0dd1;
+  transform: scale(1.1);
+}
+
 
 .menu-center-box .lb-menu-center{
     font-family: "Outfit";
     font-size: 14px;
-    color: gray;
+    color: black;
     margin-top: 5px;
 }
 
@@ -112,9 +178,9 @@
     width: 100%;
     flex-grow: 0;
     box-sizing: border-box;
-    padding: 20px 20px;
-
-
+    padding: 10px 10px 20px 10px;
+    background-color: white;
+    border-top: 1px solid lightgray;
 }
 
 .menu-bottom .box-menu-bottom{
@@ -138,7 +204,7 @@
     display: flex;  
     flex-direction: column;
     align-items:start; 
-    width: 100%;    
+    width: 100%;  
 }
 
 .bottom-center .bottom-center-lb{
@@ -154,17 +220,57 @@ align-items: center;
 justify-content: center;
 }
 
-.btn-bottom-right{
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+
+.bottom-right {
+  position: relative;
+  display: inline-block; /* o flex, según tu layout */
 }
+.btn-bottom-right{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px; /* para mejor área de click */
+
+}
+
+.popup-opciones {
+  position: absolute;
+  right: 0;
+  bottom: 100%; /* Cambiado para que aparezca arriba del botón */
+  margin-bottom: 8px; /* espacio entre botón y popup */
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 0;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  display: flex;
+  width: max-content;
+  flex-direction: column;
+}
+
+.popup-opciones button {
+  background: none;
+  font-family: "Outfit";
+  font-weight: 300;
+  border: none;
+  text-align: left;
+  padding: 8px 16px;
+  width: 100%;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.popup-opciones button:hover {
+  background-color: #f0f0f0;
+}
+
 
 .container-dasboard .dashboard-body{
     width: 100%;
     height: 100%;
 }
-
 
 .btn-cerrar-sesion{
     width: 100%;
@@ -174,19 +280,20 @@ justify-content: center;
     font-family: "Outfit";
 }
 
-
-
 .container-dasboard .dashboard-body{
     box-sizing: border-box;
     padding: 20px;
+    background-color: rgb(243, 241, 250);
 }
 
 .dashboard-body .dasboard-body-panel{
-  width: 100%;
+  max-width: 100%;
+  max-height: 100%; 
   height: 100%;
+  overflow-x: hidden; 
   background-color: white;
-  border-radius: 10px;
-  border: 1px solid lightgray;
+  border-radius: 5px;
+  border: 1px solid rgba(224, 224, 224, 0.548);
 }
 
 
