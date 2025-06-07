@@ -10,7 +10,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: white;
+  background:  rgb(249, 249, 255);
   border-right: 1px solid #eee;
 }
 
@@ -103,7 +103,7 @@
   font-size: 14px;
   font-weight: 400;
   color: #333;
-  background-color: white;
+  background-color: transparent;
   border: none;
   font-family: "Outfit";
   border-radius: 0px 5px 5px 0px;
@@ -179,7 +179,6 @@
     flex-grow: 0;
     box-sizing: border-box;
     padding: 10px 10px 20px 10px;
-    background-color: white;
     border-top: 1px solid lightgray;
 }
 
@@ -283,17 +282,15 @@ justify-content: center;
 .container-dasboard .dashboard-body{
     box-sizing: border-box;
     padding: 20px;
-    background-color: rgb(243, 241, 250);
+    background-color: rgb(241, 239, 245);
 }
 
 .dashboard-body .dasboard-body-panel{
   max-width: 100%;
   max-height: 100%; 
   height: 100%;
-  overflow-x: hidden; 
-  background-color: white;
+  background-color: transparent;
   border-radius: 5px;
-  border: 1px solid rgba(224, 224, 224, 0.548);
 }
 
 

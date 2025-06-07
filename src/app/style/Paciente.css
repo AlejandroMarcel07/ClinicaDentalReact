@@ -1,0 +1,37 @@
+.div-father{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
+    gap: 20px;
+}
+
+.div-father .div-left{
+    width: 100%;
+    height: 100%;
+    background-color:   rgb(249, 249, 255)  ;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.div-father .div-right{
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    display: grid;
+    grid-template-rows: 1fr 6fr;
+}
+
+.div-right .right-top{
+   background-color: transparent; 
+   text-align: center;
+}
+
+.div-right .right-bottom{
+    background-color: rgb(249, 249, 255);
+    border-radius: 5px 5px 5px 5px;
+    border: 1px  solid lightgray;
+    text-align: center;
+
+}
