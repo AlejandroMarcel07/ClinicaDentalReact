@@ -1,159 +1,230 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { NavLink, Outlet, useNavigate, useLocation, Link } from 'react-router-dom';
-import "../style/Dashboard.css"
+import React, { useState, useRef, useEffect } from "react";
+import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
+import {
+  FiUsers,
+  FiHome,
+  FiChevronDown,
+  FiChevronRight,
+  FiMenu,
+  FiLogOut,
+  FiSettings,
+  FiBarChart2,
+  FiUser,
+  FiCalendar,
+  FiDollarSign,
+  FiFileText,
+  FiClipboard,
+  FiBook,
+  FiGrid,
+  FiActivity,
+  FiScissors,
+  FiPercent,
+  FiLayers
+} from "react-icons/fi";
+import {
+  MdDashboard,
+  MdAnalytics,
+  MdAccessTime
+} from "react-icons/md";
 
-
-
-import { SlOptions } from "react-icons/sl";
-import { FaRegUserCircle } from "react-icons/fa";
-import { CiViewList } from "react-icons/ci";
-import { HiOutlineClipboardList } from "react-icons/hi";
-import { FiUsers } from "react-icons/fi";
-import { IoCalendarOutline } from "react-icons/io5";
-import { LiaMoneyBillWaveSolid } from "react-icons/lia";
-
-import { VscKebabVertical } from "react-icons/vsc";
-import { PiUserCircleLight } from "react-icons/pi";
-
+import '../style/Dashboard.css';
 
 export function Dashboard() {
-
+  const [menuOpen, setMenuOpen] = useState(true);
+  const [submenuOpen, setSubmenuOpen] = useState({});
   const [showPopup, setShowPopup] = useState(false);
   const popupRef = useRef();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const togglePopup = () => {
-    setShowPopup(!showPopup);
-  };
+  const usernamenow = localStorage.getItem('username');
 
+  // Datos del usuario
+  const [userData] = useState({
+    name: usernamenow,
+    clinic: "Clínica Dental Sonrisa Feliz"
+  });
 
-  // Cerrar el popup si se hace clic fuera
+  // Redirige a /dashboard/paciente si está en la raíz /dashboard
   useEffect(() => {
-    const handleClickOutside = (e) => {
+    if (location.pathname === "/dashboard") {
+      navigate("/dashboard/centroMando", { replace: true });
+    }
+  }, [location.pathname, navigate]);
+
+  // Toggle el menú lateral
+  const toggleMenu = () => setMenuOpen((o) => !o);
+
+  // Toggle submenús
+  const toggleSubmenu = (id) =>
+    setSubmenuOpen((prev) => ({ ...prev, [id]: !prev[id] }));
+
+  // Cerrar popup si se clickea fuera
+  useEffect(() => {
+    function handleClickOutside(e) {
       if (popupRef.current && !popupRef.current.contains(e.target)) {
         setShowPopup(false);
       }
-    };
+    }
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-// Cambia esto en tu menú:
-const menuItems = [
-  { text: 'Pacientes', icon: <FiUsers />, path: 'paciente',  end: true }, // Cambiado a singular
-  { text: 'Citas', icon: <IoCalendarOutline />, path: 'cita',  end: true },
-  { text: 'Facturas', icon: <IoCalendarOutline />, path: 'factura',  end: true },
-  { text: 'Historiales', icon: <HiOutlineClipboardList />, path: 'historial',  end: true },
-  { text: 'Exploraciones', icon: <IoCalendarOutline />, path: 'exploracion',  end: true },
-  { text: 'Tratamientos', icon: <IoCalendarOutline />, path: 'tratamiento',  end: true }, 
-  { text: 'Recetas', icon: <IoCalendarOutline />, path: 'receta',  end: true },// Cambiado a singular
-  // ... otros items
-];
-
-
-
-
-  const navigate = useNavigate();
+  // Cerrar menú en móvil al cambiar ruta
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   const logout = () => {
-    localStorage.removeItem("access_token"); // Elimina el token de acceso
-    localStorage.removeItem("refresh_token"); // Elimina el token de actualización
-    localStorage.removeItem("domain");  // Elimina el nombre del dominio
-
-    navigate("/");
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("domain");
+    navigate("/", { replace: true });
   };
 
   const gomain = () => {
     navigate("/", { replace: true });
   };
 
+  // Función para determinar si una ruta está activa
   const isActive = (path) => {
-  // Verifica rutas exactas o que comiencen con el path
-  return location.pathname === `/dashboard/${path}` || 
-         location.pathname.startsWith(`/dashboard/${path}/`) ||
-         (path === 'paciente' && location.pathname === '/dashboard');
-};
+    if (location.pathname === path) return true;
+    if (path === "/dashboard/centroMando" && location.pathname === "/dashboard") return true;
+    return false;
+  };
+
+  // Función para determinar si algún item del submenú está activo
+  const isSubmenuActive = (subitems) => {
+    return subitems?.some(item => isActive(item.path));
+  };
+
+  // Items del menú
+  const menuItems = [
+    { id: "centromando", text: "Centro Control", icon: <MdDashboard />, path: "/dashboard/centroMando" },
+    { id: "estadistica", text: "Estadistica", icon: <FiBarChart2 />, path: "/dashboard/estadistica" },
+    { id: "calendario", text: "Calendario", icon: <FiCalendar />, path: "/dashboard/calendario" },
+    {
+      id: "catalogos",
+      text: "Catalogos",
+      icon: <FiGrid />,
+      subitems: [
+        { id: "exploracion", text: "Exploraciones", path: "/dashboard/exploracion", icon: <FiActivity /> },
+        { id: "tratamiento", text: "Tratamientos", path: "/dashboard/tratamiento", icon: <FiScissors /> },
+        { id: "montoDescuento", text: "Descuentos", path: "/dashboard/montoDescuento", icon: <FiPercent /> },
+      ],
+    },
+    {
+      id: "config",
+      text: "Configuración",
+      icon: <FiSettings />,
+      subitems: [
+        { id: "usuario", text: "usuarios", path: "/dashboard/usuario", icon: <FiUser /> },
+        { id: "clinica", text: "Clinica", path: "/dashboard/clinica", icon: <FiLayers /> },
+      ],
+    },
+  ];
 
   return (
-    <div className='container-dasboard'>
-      <div className='dashboard-menu'>
-        <div className='menu-top'>
-          <div className='menu-top-box'>
-          <h5>| Dellta</h5>
-          </div>  
+    <div className="dashboard-container">
+      {/* Botón hamburguesa para móvil */}
+      <header className="dashboard-header">
+        <div className="header-left">
+          <button className="btn-menu-toggle" onClick={toggleMenu} aria-label="Toggle menu">
+            <FiMenu size={24} />
+          </button>
+          <h1 className="system-name">Dellta</h1>
         </div>
-<div className='menu-center'>
-  <div className='menu-center-box'>
-    <div className='box-menu-center'>
-      <label className='lb-clinica-center'>Clínica:</label>
-      <label className='lb-nameclinica-center'>Nombre de la clínica</label>
+        <div className="user-info">
+          <div className="user-details">
+            <span className="user-name">{userData.name}</span>
+            <span className="clinic-name">{userData.clinic}</span>
+          </div>
+          <div className="user-avatar">
+            <FiUser size={20} />
+          </div>
+        </div>
+      </header>
+
+      <nav className={`sidebar ${menuOpen ? "open" : "closed"}`}>
+        <div className="sidebar-header">
+          <h2 className="sidebar-system-name">Dellta</h2>
+          <div className="sidebar-user-info">
+            <FiUser size={16} />
+            <span>{userData.name}</span>
+          </div>
+        </div>
+
+        <ul className="menu-list">
+          {menuItems.map(({ id, text, icon, path, subitems }) => (
+            <li key={id} className="menu-item">
+              {subitems ? (
+                <>
+                  <button
+                    className={`menu-btn submenu-toggle ${isSubmenuActive(subitems) ? "active" : ""}`}
+                    onClick={() => toggleSubmenu(id)}
+                    aria-expanded={!!submenuOpen[id]}
+                    aria-controls={`${id}-submenu`}
+                  >
+                    <span className="menu-icon">{icon}</span>
+                    <span>{text}</span>
+                    <span className="submenu-icon">
+                      {submenuOpen[id] ? <FiChevronDown /> : <FiChevronRight />}
+                    </span>
+                  </button>
+                  <ul
+                    id={`${id}-submenu`}
+                    className={`submenu ${submenuOpen[id] ? "open" : ""}`}
+                  >
+                    {subitems.map(({ id: subId, text: subText, path: subPath }) => (
+                      <li key={subId}>
+                        <Link
+                          to={subPath}
+                          className={`submenu-link ${isActive(subPath) ? "active" : ""}`}
+                        >
+                          {subText}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              ) : (
+                <Link to={path} className={`menu-btn ${isActive(path) ? "active" : ""}`}>
+                  <span className="menu-icon">{icon}</span>
+                  <span>{text}</span>
+                </Link>
+              )}
+            </li>
+          ))}
+        </ul>
+
+        <div className="sidebar-footer">
+          <div className="footer-buttons">
+            <button
+              className="footer-btn logout"
+              onClick={() => {
+                const confirmLogout = window.confirm("¿Está seguro que desea cerrar sesión?");
+                if (confirmLogout) logout();
+              }}
+            >
+              <FiLogOut style={{ marginRight: "0.5rem" }} />
+              Cerrar sesión
+            </button>
+
+            <button
+              className="footer-btn home"
+              onClick={gomain}
+              title="Volver al inicio"
+            >
+              <FiHome />
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <main className="main-content">
+        <Outlet />
+      </main>
     </div>
-    <label className='lb-menu-center'>Main</label>
-
-
-{menuItems.map((item) => {
-  const active = isActive(item.path);
-  return (
-    <Link
-      key={item.path}
-      to={item.path}
-      className={`btn-menu-center ${active ? 'active' : ''}`}
-    >
-      <span className={`icon-wrapper ${active ? 'active' : ''}`}>
-        {item.icon}
-      </span>
-      {item.text}
-    </Link>
   );
-})}
-  </div>
-</div>
-        <div className='menu-bottom'>
-        <div className='box-menu-bottom'> 
-            <div className='bottom-left'>
-            <PiUserCircleLight style={{color: "black", fontSize: "27px",}} />
-            </div>
-            <div className='bottom-center'>
-              <label className='bottom-center-lb' style={{}}>Admin</label>
-              <label className='bottom-center-lb' style={{color:"gray", fontSize:"13px"}}>Marcel Zuniga</label>
-            </div>
-<div className='bottom-right'>
-  <button 
-    className='btn-bottom-right' 
-    onClick={togglePopup}
-    type="button"
-    aria-haspopup="true"
-    aria-expanded={showPopup}
-  >
-    <VscKebabVertical style={{color: "black", fontSize: "17px"}} />
-  </button>
-
-  {showPopup && (
-    <div className='popup-opciones' ref={popupRef} role="menu">
-      <button type="button" role="menuitem">Configuracion</button>
-      <button onClick={logout} type="button" role="menuitem">Cerrar sesión</button>
-      <button onClick={gomain} type="button" role="menuitem">Ir a inicio</button>
-    </div>
-  )}
-</div>
-
-        </div>
-        </div>
-      </div>
-      <div className='dashboard-body'>
-        <div className='dasboard-body-panel'>
-           <Outlet />
-        </div>
-      </div>
-    </div>     
-  )
 }
-
-
-{/* <button onClick={logout}>
-Cerrar Sesión
-</button>
-<button onClick={gomain}>
-Ir a Inicio
-</button> */}

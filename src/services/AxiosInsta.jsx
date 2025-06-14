@@ -3,7 +3,7 @@ import { getAuthToken } from './TokenService';
 
 const axiosInstance = axios.create();
 
-// Agregar token en los headers de cada solicitud
+// usamos axios para agregar el token en cada header de solicitud
 axiosInstance.interceptors.request.use(
     async (config) => {
       const token = await getAuthToken();

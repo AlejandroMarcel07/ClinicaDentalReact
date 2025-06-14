@@ -1,37 +1,190 @@
-.div-father{
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Dos columnas de igual tamaño */
-    gap: 20px;
+.paciente-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.div-father .div-left{
-    width: 100%;
-    height: 100%;
-    background-color:   rgb(249, 249, 255)  ;
-    border: 1px solid lightgray;
-    border-radius: 5px;
-    text-align: center;
+.paciente-main-section {
+  flex: 2;
 }
 
-.div-father .div-right{
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    display: grid;
-    grid-template-rows: 1fr 6fr;
+.paciente-sidebar {
+  flex: 1;
+  min-width: 300px;
 }
 
-.div-right .right-top{
-   background-color: transparent; 
-   text-align: center;
+/* Encabezado */
+.paciente-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-.div-right .right-bottom{
-    background-color: rgb(249, 249, 255);
-    border-radius: 5px 5px 5px 5px;
-    border: 1px  solid lightgray;
-    text-align: center;
+.paciente-avatar {
+  width: 80px;
+  height: 80px;
+  background: #5f0dd1;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-right: 20px;
+}
 
+.paciente-title-container {
+  flex: 1;
+}
+
+.paciente-title {
+  color: #333;
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.paciente-subtitle {
+  color: #666;
+  margin: 5px 0 0 0;
+  font-size: 0.9rem;
+}
+
+/* Grid de informacn */
+.paciente-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.info-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+}
+
+.info-icon {
+  font-size: 1.2rem;
+  color: #5f0dd1;
+}
+
+.info-card h3 {
+  margin: 0 0 5px 0;
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.info-card p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+/* Secciones */
+.paciente-seccion {
+  background: #f8f9fa;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.seccion-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #333;
+  font-size: 1.2rem;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.info-medica p {
+  margin: 10px 0;
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.5;
+}
+
+.info-medica strong {
+  color: #333;
+}
+
+/* Sidebar */
+.sidebar-card {
+  background: #f8f9fa;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.sidebar-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #333;
+  font-size: 1.1rem;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.cita-info p {
+  margin: 8px 0;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.historial-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.historial-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.historial-item:last-child {
+  border-bottom: none;
+}
+
+.historial-fecha {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.historial-motivo {
+  font-weight: 500;
+  margin: 3px 0;
+}
+
+.historial-diagnostico {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+/* Estados */
+.loading {
+  text-align: center;
+  padding: 50px;
+  color: #666;
+}
+
+.error {
+  text-align: center;
+  padding: 50px;
+  color: #d32f2f;
 }
